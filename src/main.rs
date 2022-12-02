@@ -9,7 +9,7 @@ mod solutions {
         pub mod elves_gathering_calories;
     }
     pub mod day_2 {
-        pub mod dive;
+        pub mod rock_paper_scissors;
     }
 }
 
@@ -21,7 +21,7 @@ fn main() {
     }
     match args[1].as_str() {
         "1" => solutions::day_1::elves_gathering_calories::run(),
-        "2" => solutions::day_2::dive::run(),
+        "2" => solutions::day_2::rock_paper_scissors::run(),
         _ => println!("day not found"),
     }
 }
