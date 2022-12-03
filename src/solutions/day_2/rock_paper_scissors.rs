@@ -1,4 +1,5 @@
 use crate::parser::file;
+use std::error::Error;
 
 const INPUT_FILE: &str = "./inputs/day_2.txt";
 
@@ -130,53 +131,56 @@ impl RoundPuzzle {
     }
 }
 
-fn part1() -> u64 {
+fn part1() -> Result<u64, Box<dyn Error>> {
     let mut score_part1: u64 = 0;
     file::process(
         INPUT_FILE,
-        |line: String| -> Round {
+        |line: String| -> Result<Round, Box<dyn Error>> {
             let line_components: Vec<&str> = line.split(" ").collect();
-            Round::new(
+            Ok(Round::new(
                 Shape::new(line_components[1]),
                 Shape::new(line_components[0]),
-            )
+            ))
         },
         |round: Round| {
             score_part1 += round.score();
+            Ok(())
         },
-    );
-    score_part1
+    )?;
+    Ok(score_part1)
 }
 
-fn part2() -> u64 {
+fn part2() -> Result<u64, Box<dyn Error>> {
     let mut score_part2: u64 = 0;
     file::process(
         INPUT_FILE,
-        |line: String| -> RoundPuzzle {
+        |line: String| -> Result<RoundPuzzle, Box<dyn Error>> {
             let line_components: Vec<&str> = line.split(" ").collect();
-            RoundPuzzle::new(
+            Ok(RoundPuzzle::new(
                 Shape::new(line_components[0]),
                 RoundOutcome::new(line_components[1]),
-            )
+            ))
         },
         |round_puzzle: RoundPuzzle| {
             score_part2 += round_puzzle.guess_round().score();
+            Ok(())
         },
-    );
-    score_part2
+    )?;
+    Ok(score_part2)
 }
 
-pub fn run() {
-    println!("score: {}", part1());
-    println!("score: {}", part2());
+pub fn run() -> Result<(), Box<dyn Error>> {
+    println!("score: {}", part1()?);
+    println!("score: {}", part2()?);
+    Ok(())
 }
 
 #[test]
 fn calculate_score() {
-    assert_eq!(13484, part1())
+    assert_eq!(13484, part1().unwrap())
 }
 
 #[test]
 fn guess_shape() {
-    assert_eq!(13433, part2())
+    assert_eq!(13433, part2().unwrap())
 }

@@ -1,4 +1,5 @@
 use crate::parser::file;
+use std::error::Error;
 
 const INPUT_FILE: &str = "./inputs/day_1.txt";
 
@@ -10,13 +11,13 @@ enum Event {
     ElveGatherCalories(Calories),
 }
 
-fn process_line(line: String) -> Event {
+fn process_line(line: String) -> Result<Event, Box<dyn Error>> {
     if line.is_empty() {
-        Event::NewElve
+        Ok(Event::NewElve)
     } else {
         match line.parse::<Calories>() {
-            Ok(v) => Event::ElveGatherCalories(v),
-            Err(e) => panic!("parse line \"{}\" as Calories failed: {}", line, e),
+            Ok(v) => Ok(Event::ElveGatherCalories(v)),
+            Err(e) => Err(Box::new(e)),
         }
     }
 }
@@ -27,7 +28,7 @@ struct SantaTeam {
 }
 
 impl SantaTeam {
-    fn new(file_name: &str, n: usize) -> Self {
+    fn new(file_name: &str, n: usize) -> Result<Self, Box<dyn Error>> {
         let mut team = Self {
             elves_top_n: vec![0; n],
             elve_current: 0,
@@ -46,14 +47,16 @@ impl SantaTeam {
                     team.elves_top_n.sort_by(|a, b| b.cmp(a));
                 }
                 team.elve_current = 0;
+                Ok(())
             }
 
             Event::ElveGatherCalories(calories) => {
                 team.elve_current += calories;
+                Ok(())
             }
-        });
+        })?;
 
-        team
+        Ok(team)
     }
 
     fn sum_top_n_calories(&self, n: usize) -> Result<Calories, &'static str> {
@@ -70,8 +73,8 @@ impl SantaTeam {
     }
 }
 
-pub fn run() {
-    let team = SantaTeam::new(INPUT_FILE, 3);
+pub fn run() -> Result<(), Box<dyn Error>> {
+    let team = SantaTeam::new(INPUT_FILE, 3)?;
     println!(
         "team.sum_top_n_calories(1): {}",
         team.sum_top_n_calories(1)
@@ -82,16 +85,17 @@ pub fn run() {
         team.sum_top_n_calories(3)
             .expect("top 3 elves must exist accordingly to the task specification")
     );
+    Ok(())
 }
 
 #[test]
 fn top_1() {
-    let team = SantaTeam::new(INPUT_FILE, 1);
+    let team = SantaTeam::new(INPUT_FILE, 1).unwrap();
     assert_eq!(67658, team.sum_top_n_calories(1).unwrap());
 }
 
 #[test]
 fn top_3() {
-    let team = SantaTeam::new(INPUT_FILE, 3);
+    let team = SantaTeam::new(INPUT_FILE, 3).unwrap();
     assert_eq!(200158, team.sum_top_n_calories(3).unwrap());
 }

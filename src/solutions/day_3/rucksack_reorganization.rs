@@ -1,5 +1,6 @@
 use core::panic;
 use std::collections::HashSet;
+use std::error::Error;
 
 use crate::parser::file;
 
@@ -13,7 +14,7 @@ fn item_score(c: Item) -> u32 {
     // Uppercase item types A through Z have priorities 27 through 52.
     let mut v: u32 = c.into();
     if c.is_lowercase() {
-        v -= 96; // 16
+        v -= 96;
     }
     if c.is_uppercase() {
         v -= 38;
@@ -75,7 +76,7 @@ impl ElvesGroup {
         self.elves.len() == 3
     }
 
-    fn find_badge(&self) -> Item {
+    fn find_badge(&self) -> Result<Item, Box<dyn Error>> {
         if !self.can_find_badge() {
             panic!("cannot find badge for elve group of size != 3")
         }
@@ -96,44 +97,46 @@ impl ElvesGroup {
             panic!("there is more than one badge");
         }
 
-        match i.iter().next() {
-            Some(&v) => v,
-            _ => panic!("no items in the intersection"),
-        }
+        Ok(*i.iter().next().unwrap())
     }
 }
 
-pub fn part1() {
+pub fn part1() -> Result<(), Box<dyn Error>> {
     let mut score = 0;
     file::process(
         INPUT_FILE,
-        |line: String| -> Items { Items::from(line) },
-        |rucksack: Items| {
+        |line: String| -> Result<Items, Box<dyn Error>> { Ok(Items::from(line)) },
+        |rucksack: Items| -> Result<_, Box<dyn Error>> {
             let elve = Elve::new(rucksack);
             score += items_score(elve.find_common_items_in_both_compartments());
+            Ok(())
         },
-    );
-    println!("score: {score}")
+    )?;
+    println!("score: {score}");
+    Ok(())
 }
 
-pub fn part2() {
+pub fn part2() -> Result<(), Box<dyn Error>> {
     let mut score = 0;
     let mut elves_group = ElvesGroup::new();
     file::process(
         INPUT_FILE,
-        |line: String| -> Items { Items::from(line) },
-        |rucksack: Items| {
+        |line: String| -> Result<Items, Box<dyn Error>> { Ok(Items::from(line)) },
+        |rucksack: Items| -> Result<_, Box<dyn Error>> {
             elves_group.add(Elve::new(rucksack));
             if elves_group.can_find_badge() {
-                score += item_score(elves_group.find_badge());
+                score += item_score(elves_group.find_badge()?);
                 elves_group = ElvesGroup::new();
             }
+            Ok(())
         },
-    );
-    println!("score: {score}")
+    )?;
+    println!("score: {score}");
+    Ok(())
 }
 
-pub fn run() {
-    part1();
-    part2();
+pub fn run() -> Result<(), Box<dyn Error>> {
+    part1()?;
+    part2()?;
+    Ok(())
 }
