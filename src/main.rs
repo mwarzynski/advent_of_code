@@ -6,10 +6,13 @@ pub mod parser {
 
 mod solutions {
     pub mod day_1 {
-        pub mod elves_gathering_calories;
+        pub mod calorie_counting;
     }
     pub mod day_2 {
         pub mod rock_paper_scissors;
+    }
+    pub mod day_3 {
+        pub mod rucksack_reorganization;
     }
 }
 
@@ -20,8 +23,9 @@ fn main() {
         return;
     }
     match args[1].as_str() {
-        "1" => solutions::day_1::elves_gathering_calories::run(),
+        "1" => solutions::day_1::calorie_counting::run(),
         "2" => solutions::day_2::rock_paper_scissors::run(),
+        "3" => solutions::day_3::rucksack_reorganization::run(),
         _ => println!("day not found"),
     }
 }
