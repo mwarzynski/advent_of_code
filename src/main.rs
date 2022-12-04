@@ -15,6 +15,9 @@ mod solutions {
     pub mod day_3 {
         pub mod rucksack_reorganization;
     }
+    pub mod day_4 {
+        pub mod camp_cleanup;
+    }
 }
 
 fn main() -> Result<(), Box<dyn Error>> {
@@ -27,6 +30,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         "1" => solutions::day_1::calorie_counting::run(),
         "2" => solutions::day_2::rock_paper_scissors::run(),
         "3" => solutions::day_3::rucksack_reorganization::run(),
+        "4" => solutions::day_4::camp_cleanup::run(),
         _ => Ok(()),
     }
 }
