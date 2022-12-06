@@ -4,8 +4,6 @@ use std::io::{BufRead, BufReader};
 use std::string::ParseError;
 use std::{error::Error, str::FromStr};
 
-const INPUT_FILE: &str = "./inputs/day_5.txt";
-
 #[derive(Debug, Clone, PartialEq)]
 struct Operation {
     count: i32,
@@ -115,6 +113,8 @@ impl StackCrates {
         items
     }
 }
+
+const INPUT_FILE: &str = "./inputs/day_5.txt";
 
 pub fn run() -> Result<(), Box<dyn Error>> {
     let mut stack_crates = StackCrates::new();
