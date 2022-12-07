@@ -24,6 +24,9 @@ mod solutions {
     pub mod day_6 {
         pub mod tuning_trouble;
     }
+    pub mod day_7 {
+        pub mod no_space_left_on_device;
+    }
 }
 
 fn main() -> Result<(), Box<dyn Error>> {
@@ -39,6 +42,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         "4" => solutions::day_4::camp_cleanup::run(),
         "5" => solutions::day_5::supply_stacks::run(),
         "6" => solutions::day_6::tuning_trouble::run(),
+        "7" => solutions::day_7::no_space_left_on_device::run(),
         _ => Ok(()),
     }
 }
