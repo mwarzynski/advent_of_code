@@ -27,6 +27,9 @@ mod solutions {
     pub mod day_7 {
         pub mod no_space_left_on_device;
     }
+    pub mod day_8 {
+        pub mod treetop_tree_house;
+    }
 }
 
 fn main() -> Result<(), Box<dyn Error>> {
@@ -43,6 +46,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         "5" => solutions::day_5::supply_stacks::run(),
         "6" => solutions::day_6::tuning_trouble::run(),
         "7" => solutions::day_7::no_space_left_on_device::run(),
+        "8" => solutions::day_8::treetop_tree_house::run(),
         _ => Ok(()),
     }
 }
