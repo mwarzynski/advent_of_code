@@ -30,6 +30,9 @@ mod solutions {
     pub mod day_8 {
         pub mod treetop_tree_house;
     }
+    pub mod day_9 {
+        pub mod rope_bridge;
+    }
 }
 
 fn main() -> Result<(), Box<dyn Error>> {
@@ -47,6 +50,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         "6" => solutions::day_6::tuning_trouble::run(),
         "7" => solutions::day_7::no_space_left_on_device::run(),
         "8" => solutions::day_8::treetop_tree_house::run(),
+        "9" => solutions::day_9::rope_bridge::run(),
         _ => Ok(()),
     }
 }
