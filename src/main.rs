@@ -33,6 +33,9 @@ mod solutions {
     pub mod day_9 {
         pub mod rope_bridge;
     }
+    pub mod day_10 {
+        pub mod cathode_ray_tube;
+    }
 }
 
 fn main() -> Result<(), Box<dyn Error>> {
@@ -51,6 +54,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         "7" => solutions::day_7::no_space_left_on_device::run(),
         "8" => solutions::day_8::treetop_tree_house::run(),
         "9" => solutions::day_9::rope_bridge::run(),
+        "10" => solutions::day_10::cathode_ray_tube::run(),
         _ => Ok(()),
     }
 }
