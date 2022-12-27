@@ -61,8 +61,4 @@ Valve LA has flow rate=0; tunnels lead to valves AA, MU
 Valve JQ has flow rate=6; tunnels lead to valves IX, JC, PX, YN, OM
 Valve IK has flow rate=0; tunnels lead to valves EO, RP
 Valve HG has flow rate=0; tunnels lead to valves MH, RP
-<<<<<<< HEAD
 Valve NS has flow rate=23; tunnels lead to valves CV, BB, UJ
-=======
-Valve NS has flow rate=23; tunnels lead to valves CV, BB, UJ
->>>>>>> 505b06e (aoc16: wip)
